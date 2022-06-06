@@ -4,4 +4,4 @@
 ## Setup
 Downlaod and run setup for Python CLI version from here https://github.com/Nathanwoodburn/HNS-Alarm
 
-The UI should now run by extracting the zip and running `HNS Alarm.exe`
+The UI should now run by extracting the zip from the latest [release](https://github.com/Nathanwoodburn/HNS-Alarm-UI/releases) and running `HNS Alarm.exe`
