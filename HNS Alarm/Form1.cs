@@ -106,9 +106,9 @@ namespace HNS_Alarm
                 streamw2.Dispose();
             }
 
-            if (File.Exists(path + "\\names.txt"))
+            if (File.Exists(path + "\\name.txt"))
             {
-                StreamReader streamr3 = new StreamReader(path + "\\names.txt");
+                StreamReader streamr3 = new StreamReader(path + "\\name.txt");
                 expname=streamr3.ReadLine();
                 expblock = int.Parse(streamr3.ReadLine());
                 streamr3.Close();
@@ -340,11 +340,11 @@ namespace HNS_Alarm
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists(path + "\\names.txt"))
+            if (File.Exists(path + "\\name.txt"))
             {
-                File.Delete(path + "\\names.txt");
+                File.Delete(path + "\\name.txt");
             }
-            StreamWriter streamw1 = new StreamWriter(path + "\\names.txt");
+            StreamWriter streamw1 = new StreamWriter(path + "\\name.txt");
             streamw1.WriteLine(expname);
             streamw1.WriteLine(expblock.ToString());
             streamw1.Close();
