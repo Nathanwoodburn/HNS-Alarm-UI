@@ -1,15 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace HNS_Alarm
@@ -19,14 +14,13 @@ namespace HNS_Alarm
         string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\HNSAlarm";
         string apikey = "";
         int blocks = 2000;
-        
+
         string expname = "";
         int expblock = 0;
         public Form1()
         {
             InitializeComponent();
         }
-        //string apikey = "f35af969dc4c605d14f17b712bdfdfaa43f67dfe";
         private async void button1_Click(object sender, EventArgs e)
         {
             sync();
@@ -47,15 +41,17 @@ namespace HNS_Alarm
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             string output = cmd.StandardOutput.ReadToEnd();
-            if (!output.Contains("HSD not running") && output.Contains("Next")) {
+            if (!output.Contains("HSD not running") && output.Contains("Next"))
+            {
                 output = output.Substring(output.IndexOf("Next"));
-                string[] lines = output.Split(new string[] { "\r\n", "\r", "\n" },StringSplitOptions.None);
+                string[] lines = output.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
                 StatusLabel.Text = "";
                 int i = 0;
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
                     if (i <= 3)
                     {
-                        StatusLabel.Text += line+"\n";
+                        StatusLabel.Text += line + "\n";
                     }
                     switch (i)
                     {
@@ -83,7 +79,7 @@ namespace HNS_Alarm
             }
             if (!File.Exists(path + "\\API.key"))
             {
-                
+
                 apikeyForm apikey = new apikeyForm(path);
                 apikey.ShowDialog();
             }
@@ -96,7 +92,7 @@ namespace HNS_Alarm
                 StreamReader streamr3 = new StreamReader(path + "\\settings.txt");
                 streamr3.ReadLine();
                 blocks = int.Parse(streamr3.ReadLine());
-                synctimer.Interval= int.Parse(streamr3.ReadLine());
+                synctimer.Interval = int.Parse(streamr3.ReadLine());
                 expiretimer.Interval = int.Parse(streamr3.ReadLine());
                 streamr1.Dispose();
             }
@@ -111,6 +107,7 @@ namespace HNS_Alarm
             }
 
             sync();
+            checkexp();
 
         }
 
@@ -120,6 +117,11 @@ namespace HNS_Alarm
         }
 
         private void expiretimer_Tick(object sender, EventArgs e)
+        {
+            checkexp();
+        }
+
+        private void checkexp()
         {
             if (expblock > 0)
             {
@@ -131,8 +133,8 @@ namespace HNS_Alarm
                 if (height > expblock - blocks)
                 {
                     //MessageBox.Show(expname + " will be expiring in " + (expblock - height).ToString() + " blocks.\nPlease renew it to prevent losing it.", "HNS Alarm");
-                    
-                    notifyIcon1.ShowBalloonTip(100000, "HNS Alarm", expname + " will be expiring in " + (expblock - height).ToString() + " blocks.\nPlease renew it to prevent losing it.",ToolTipIcon.Warning);
+
+                    notifyIcon1.ShowBalloonTip(100000, "HNS Alarm", expname + " will be expiring in " + (expblock - height).ToString() + " blocks.\nPlease renew it to prevent losing it.", ToolTipIcon.Warning);
                     expiretimer.Stop();
                     pausedToolStripMenuItem.Checked = true;
                 }
