@@ -112,7 +112,7 @@ namespace HNS_Alarm
                 expname=streamr3.ReadLine();
                 expblock = int.Parse(streamr3.ReadLine());
                 streamr3.Close();
-                label1.Text = "Name: " + expname + "\nExpires: "+expblock.ToString();
+                StatusLabel.Text = "Name: " + expname + "\nExpires: "+expblock.ToString();
             }
 
             sync();
