@@ -5,6 +5,4 @@ Settngs are stored in Appdata/local/HNSAlarm
 Please note. upon startup it requires to be connected to bob at least once
 
 ## Setup
-Downlaod and run setup for Python CLI version from here https://github.com/Nathanwoodburn/HNS-Alarm
-
-The UI should now run by extracting the zip from the latest [release](https://github.com/Nathanwoodburn/HNS-Alarm-UI/releases) and running `HNS Alarm.exe`
+Downlaod the latest [release](https://github.com/Nathanwoodburn/HNS-Alarm-UI/releases) and run `HNS Alarm.exe`
