@@ -49,7 +49,7 @@ namespace HNS_Alarm
                 int i = 0;
                 foreach (string line in lines)
                 {
-                    if (i <= 3)
+                    if (i <= 2)
                     {
                         StatusLabel.Text += line + "\n";
                     }
@@ -139,6 +139,7 @@ namespace HNS_Alarm
                 apiinfo = apiinfo.Substring(index);
                 string[] split = apiinfo.Split(new Char[] { ':', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 int height = int.Parse(split[1]);
+                labelheight.Text = height.ToString();
                 if (height > expblock - blocks)
                 {
                     //MessageBox.Show(expname + " will be expiring in " + (expblock - height).ToString() + " blocks.\nPlease renew it to prevent losing it.", "HNS Alarm");
@@ -367,6 +368,18 @@ namespace HNS_Alarm
                 pausedToolStripMenuItem.Checked = true;
                 expiretimer.Stop();
             }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void hidetimer_Tick(object sender, EventArgs e)
+        {
+            hidetimer.Stop();
+            this.Hide();
+            this.Opacity = 1;
         }
     }
     public static class StringCipher
